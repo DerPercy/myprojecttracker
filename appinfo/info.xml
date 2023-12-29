@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <!--
+    SPDX-FileCopyrightText: C.Schmidt <github@marchron.de>
+    SPDX-License-Identifier: CC0-1.0
+    -->
+    <id>myprojecttracker</id>
+    <name>My Project Tracker</name>
+    <summary>Project Timetracking</summary>
+    <description><![CDATA[Project timetracking]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="github@marchron.de" >C.Schmidt</author>
+    <namespace>MyProjectTracker</namespace>
+    <category>organization</category>
+    <bugs>https://github.com</bugs>
+    <dependencies>
+        <nextcloud min-version="27" max-version="27"/>
+    </dependencies>
+    <navigations>
+        <navigation>
+            <name>My Project Tracker</name>
+            <route>myprojecttracker.page.index</route>
+        </navigation>
+    </navigations>
+</info>
