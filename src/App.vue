@@ -5,76 +5,43 @@
     -->
 	<div id="content" class="app-myprojecttracker">
 			
-		<AppNavigation>
-			<AppNavigationNew v-if="!loading"
+		<NcAppNavigation>
+			<NcAppNavigationNew v-if="!loading"
 				:text="t('myprojecttracker', 'New note')"
 				:disabled="false"
 				button-id="new-myprojecttracker-button"
 				button-class="icon-add"
 				@click="newNote" />
 			<ul>
-				<AppNavigationItem v-for="menuentry in menu"
+				<NcAppNavigationItem v-for="menuentry in menu"
 					:title="menuentry.label"
 					@click="navigate(menuentry)"
 				>
-				</AppNavigationItem>
+				</NcAppNavigationItem>
 				
-				<AppNavigationItem v-for="note in notes"
+				<NcAppNavigationItem v-for="note in notes"
 					:key="note.id"
 					:title="note.title ? note.title : t('myprojecttracker', 'New note')"
 					:class="{active: currentNoteId === note.id}"
 					@click="openNote(note)">
 					<template slot="actions">
-						<ActionButton v-if="note.id === -1"
+						<NcActionButton v-if="note.id === -1"
 							icon="icon-close"
 							@click="cancelNewNote(note)">
 							{{
 							t('myprojecttracker', 'Cancel note creation') }}
-						</ActionButton>
-						<ActionButton v-else
+						</NcActionButton>
+						<NcActionButton v-else
 							icon="icon-delete"
 							@click="deleteNote(note)">
 							{{
 							 t('myprojecttracker', 'Delete note') }}
-						</ActionButton>
+						</NcActionButton>
 					</template>
-				</AppNavigationItem>
+				</NcAppNavigationItem>
 			</ul>
-		</AppNavigation>
-		<AppNavigation>
-			<AppNavigationNew v-if="!loading"
-				:text="t('myprojecttracker', 'New note')"
-				:disabled="false"
-				button-id="new-myprojecttracker-button"
-				button-class="icon-add"
-				@click="newNote" />
-			<ul>
-				
-				
-				
-				<AppNavigationItem v-for="note in notes"
-					:key="note.id"
-					:title="note.title ? note.title : t('myprojecttracker', 'New note')"
-					:class="{active: currentNoteId === note.id}"
-					@click="openNote(note)">
-					<template slot="actions">
-						<ActionButton v-if="note.id === -1"
-							icon="icon-close"
-							@click="cancelNewNote(note)">
-							{{
-							t('myprojecttracker', 'Cancel note creation') }}
-						</ActionButton>
-						<ActionButton v-else
-							icon="icon-delete"
-							@click="deleteNote(note)">
-							{{
-							 t('myprojecttracker', 'Delete note') }}
-						</ActionButton>
-					</template>
-				</AppNavigationItem>
-			</ul>
-		</AppNavigation>
-		<AppContent>
+		</NcAppNavigation>
+		<NcAppContent>
 			<MyCRUDComponent 
 				v-if="activePage.page === 'crud'"
 				:options="activePage.options"
@@ -101,16 +68,16 @@
 		
 			<h2>Content</h2>
 			
-		</AppContent>
+		</NcAppContent>
 	</div>
 </template>
 
 <script>
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-import AppContent from '@nextcloud/vue/dist/Components/AppContent'
-import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
-import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
-import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew'
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent'
+import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
+import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
+import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
 import MyCRUDComponent from './common/MyCRUDComponent.vue'
 
 import '@nextcloud/dialogs/styles/toast.scss'
@@ -121,11 +88,11 @@ import axios from '@nextcloud/axios'
 export default {
 	name: 'App',
 	components: {
-    ActionButton,
-    AppContent,
-    AppNavigation,
-    AppNavigationItem,
-    AppNavigationNew,
+    NcActionButton,
+    NcAppContent,
+    NcAppNavigation,
+    NcAppNavigationItem,
+    NcAppNavigationNew,
 	MyCRUDComponent
 },
 	

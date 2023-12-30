@@ -21,6 +21,14 @@ class ClientService {
     public function __construct(ClientMapper $mapper) {
 		$this->mapper = $mapper;
 	}
+
+	/**
+	 * @return list<Note>
+	 */
+	public function findAll(string $userId): array {
+		return $this->mapper->findAll($userId);
+	}
+	
     public function create(string $title, bool $active, string $userId): Client{
 		$client = new Client();
 		$client->setTitle($title);

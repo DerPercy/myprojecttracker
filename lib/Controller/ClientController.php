@@ -29,8 +29,7 @@ class ClientController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function index(): DataResponse {
-		//return new DataResponse($this->service->findAll($this->userId));
-        return new DataResponse(array());
+		return new DataResponse($this->service->findAll($this->userId));
     }
 
     /**
@@ -69,6 +68,26 @@ class ClientController extends Controller {
     //    return $this->service->delete($id, $this->userId);
     //});
         return new DataResponse(array());
+    }
+
+     /**
+	 * @NoAdminRequired
+	 */
+	public function entityinfo(): DataResponse {
+        $info = array(
+            "attributes" => array(
+                array(
+                    "id" => "title",
+                    "label" => "Titel"
+                ),
+                array(
+                    "id" => "active",
+                    "label" => "Aktiv"
+                )
+            )
+        );
+
+        return new DataResponse($info);
     }
 
     /**

@@ -33,6 +33,7 @@ class MenuController extends Controller {
                 "options" => array(
                     "url" => array (
                         "entityschema" => "/apps/myprojecttracker/client/schema",
+                        "entityinfo" => "/apps/myprojecttracker/client/entityinfo",
                         "resources" => "/apps/myprojecttracker/client/resources"
                     )
 
