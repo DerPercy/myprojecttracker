@@ -14,21 +14,21 @@ use OCP\AppFramework\Db\Entity;
  * @method getId(): int
  * @method getTitle(): string
  * @method setTitle(string $title): void
- * @method getActive(): bool
- * @method setActive(bool $active): void
+ * @method getActive(): int
+ * @method setActive(int $active): void
  * @method getUserId(): string
  * @method setUserId(string $userId): void
  */
 class Client extends Entity implements JsonSerializable {
 	protected string    $title = '';
-	protected bool      $active = true;
+	protected int      $active = 1;
 	protected string    $userId = '';
 
 	public function jsonSerialize(): array {
 		return [
 			'id' => $this->id,
 			'title' => $this->title,
-			'active' => $this->active
+			'active' => ( $this->active == 1 ? true : false )
 		];
 	}
 }

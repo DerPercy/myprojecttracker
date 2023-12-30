@@ -37,10 +37,16 @@ class Version000001Date20231228000 extends SimpleMigrationStep {
 				'notnull' => true,
 				'length' => 200,
 			]);
-			$table->addColumn('active', 'boolean', [
+
+			// Use "integer" instead of "boolean" here for wider database support
+			// see: https://docs.nextcloud.com/server/latest/developer_manual/basics/storage/database.html (e.g. PHP casts false to the empty string which fails on PostgreSQL)
+
+			$table->addColumn('active', 'integer', [
 				'notnull' => false,
-				'default' => true,
+				'default' => 1,
 			]);
+
+
 			$table->setPrimaryKey(['id']);
 			$table->addIndex(['user_id'], 'mypt_clients_user_id_index');
 		}

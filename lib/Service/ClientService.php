@@ -24,7 +24,7 @@ class ClientService {
     public function create(string $title, bool $active, string $userId): Client{
 		$client = new Client();
 		$client->setTitle($title);
-		$client->setActive($active);
+		$client->setActive(($active ? 1 : 0));
 		$client->setUserId($userId);
 		return $this->mapper->insert($client);
 	}

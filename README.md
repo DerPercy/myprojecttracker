@@ -6,6 +6,17 @@ SPDX-License-Identifier: CC0-1.0
 # My Project Tracker
 Place this app in **nextcloud/apps/**
 
+
+## Setup development environment
+### Codespaces
+* create fork of nextcloud server https://github.com/nextcloud/server
+* Setup codespace for the fork
+* start codespace
+* run command in terminal:
+```
+git submodule add -f https://github.com/DerPercy/myprojecttracker.git apps/myprojecttracker
+```
+
 ## Building the app
 
 The app can be built by using the provided Makefile by running:
