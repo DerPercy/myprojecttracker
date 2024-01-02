@@ -71,7 +71,7 @@ class ClientIntegrationTest extends TestCase {
 
 		$id = $this->mapper->insert($client)->getId();
 
-		$result = $this->controller->delete($id);
+		$result = $this->controller->destroy($id);
 
 		$this->assertEquals($id, $result->getData()->getId());
 

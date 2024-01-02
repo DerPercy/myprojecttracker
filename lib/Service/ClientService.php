@@ -37,4 +37,27 @@ class ClientService {
 		return $this->mapper->insert($client);
 	}
 
+	public function update(int $id, string $title, bool $active, string $userId): Client {
+		try {
+			$client = $this->mapper->find($id, $userId);
+			$client->setTitle($title);
+			$client->setActive(($active ? 1 : 0));
+			return $this->mapper->update($client);
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
+	}
+
+	/**
+	 * @return never
+	 */
+	private function handleException(Exception $e) {
+		if ($e instanceof DoesNotExistException ||
+			$e instanceof MultipleObjectsReturnedException) {
+			throw new ClientNotFound($e->getMessage());
+		} else {
+			throw $e;
+		}
+	}
+
 }

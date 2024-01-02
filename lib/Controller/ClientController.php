@@ -53,11 +53,10 @@ class ClientController extends Controller {
     /**
 	 * @NoAdminRequired
 	 */
-	public function update(int $id, string $title, string $content): DataResponse {
-        //return $this->handleNotFound(function () use ($id, $title, $content) {
-        //return $this->service->update($id, $title, $content, $this->userId);
-        //});
-        return new DataResponse(array());
+	public function update(int $id, string $title, string $active): DataResponse {
+        return $this->handleNotFound(function () use ($id, $title, $active) {
+            return $this->service->update($id, $title, (bool)(strcmp($active,"yes") === 0), $this->userId);
+        });
     }
 
     /**
