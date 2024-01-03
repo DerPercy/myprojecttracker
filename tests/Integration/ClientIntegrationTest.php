@@ -9,6 +9,7 @@ namespace OCA\MyProjectTracker\Tests\Integration\Controller;
 use OCA\MyProjectTracker\Controller\ClientController;
 use OCA\MyProjectTracker\Db\Client;
 use OCA\MyProjectTracker\Db\ClientMapper;
+use OCA\MyProjectTracker\Service\ClientNotFoundException;
 
 use OCP\AppFramework\App;
 use OCP\IRequest;
@@ -65,7 +66,7 @@ class ClientIntegrationTest extends TestCase {
     public function testDelete(): void {
 		// create a new client that should be deleted
 		$client = new Client();
-		$client->setTitle('old_title');
+		$client->setTitle('title to delete');
 		$client->setActive(true);
 		$client->setUserId($this->userId);
 
@@ -79,4 +80,30 @@ class ClientIntegrationTest extends TestCase {
         $this->expectException(ClientNotFoundException::class);
         $this->controller->show($id);
     }
+
+	static function tearDownAfterClass():void {
+
+		$app = new App('myprojecttracker');
+		$container = $app->getContainer();
+
+		// only replace the user id
+		$container->registerService('userId', function () {
+			return 'tester';
+		});
+
+		// we do not care about the request but the controller needs it
+		$container->registerService(IRequest::class, function () {
+			return $this->createMock(IRequest::class);
+		});
+
+		$controller = $container->get(ClientController::class);
+		//$this->mapper = $container->get(ClientMapper::class);
+
+		$results = $controller->index();
+		//print(count($results->getData()));
+		foreach ($results->getData() as &$client) {
+			//echo($client->getId());
+			$controller->destroy($client->getId());
+		}
+	}
 }

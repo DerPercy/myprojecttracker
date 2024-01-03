@@ -6,5 +6,5 @@ declare(strict_types=1);
 
 namespace OCA\MyProjectTracker\Service;
 
-class ClientNotFound extends \Exception {
+class ClientNotFoundException extends \Exception {
 }

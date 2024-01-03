@@ -23,10 +23,22 @@ class ClientService {
 	}
 
 	/**
-	 * @return list<Note>
+	 * @return list<Client>
 	 */
 	public function findAll(string $userId): array {
 		return $this->mapper->findAll($userId);
+	}
+
+	public function find(int $id, string $userId): Client {
+		try {
+			return $this->mapper->find($id, $userId);
+			// in order to be able to plug in different storage backends like files
+			// for instance it is a good idea to turn storage related exceptions
+			// into service related exceptions so controllers and service users
+			// have to deal with only one type of exception
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
 	}
 	
     public function create(string $title, bool $active, string $userId): Client{
@@ -48,13 +60,23 @@ class ClientService {
 		}
 	}
 
+	public function delete(int $id, string $userId): Client {
+		try {
+			$client = $this->mapper->find($id, $userId);
+			$this->mapper->delete($client);
+			return $client;
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
+	}
+
 	/**
 	 * @return never
 	 */
 	private function handleException(Exception $e) {
 		if ($e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException) {
-			throw new ClientNotFound($e->getMessage());
+			throw new ClientNotFoundException($e->getMessage());
 		} else {
 			throw $e;
 		}
