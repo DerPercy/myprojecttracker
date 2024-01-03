@@ -23,15 +23,15 @@ class ClientMapper extends QBMapper {
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
 	 * @throws DoesNotExistException
 	 */
-	/*public function find(int $id, string $userId): Note {
-		/* @var $qb IQueryBuilder * /
+	public function find(int $id, string $userId): Client {
+		/* @var $qb IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
-			->from('myprojecttracker')
+			->from('mypt_clients')
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
 			->andWhere($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
 		return $this->findEntity($qb);
-	}*/
+	}
 
 	/**
 	 * @param string $userId

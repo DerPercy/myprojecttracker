@@ -36,10 +36,9 @@ class ClientController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function show(int $id): DataResponse {
-		//return $this->handleNotFound(function () use ($id) {
-		//	return $this->service->find($id, $this->userId);
-		//});
-        return new DataResponse(array());
+		return $this->handleNotFound(function () use ($id) {
+			return $this->service->find($id, $this->userId);
+		});
 	}
 
     /**
@@ -53,21 +52,19 @@ class ClientController extends Controller {
     /**
 	 * @NoAdminRequired
 	 */
-	public function update(int $id, string $title, string $content): DataResponse {
-        //return $this->handleNotFound(function () use ($id, $title, $content) {
-        //return $this->service->update($id, $title, $content, $this->userId);
-        //});
-        return new DataResponse(array());
+	public function update(int $id, string $title, string $active): DataResponse {
+        return $this->handleNotFound(function () use ($id, $title, $active) {
+            return $this->service->update($id, $title, (bool)(strcmp($active,"yes") === 0), $this->userId);
+        });
     }
 
     /**
     * @NoAdminRequired
     */
     public function destroy(int $id): DataResponse {
-    //return $this->handleNotFound(function () use ($id) {
-    //    return $this->service->delete($id, $this->userId);
-    //});
-        return new DataResponse(array());
+        return $this->handleNotFound(function () use ($id) {
+            return $this->service->delete($id, $this->userId);
+        });
     }
 
      /**

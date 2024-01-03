@@ -16,26 +16,35 @@ import axios from '@nextcloud/axios'
 
 
   export default {
-    props: ['schemaurl','formtargeturl'],
+    props: {
+      schemaurl: String,
+      formtargeturl: String,
+      method: {
+        type: String,
+        default: "POST"
+      },
+      prefillvalues: {
+        type: Object,
+        default: {}
+      }
+    },
     data() {
       return { 
-        values: {
-        },
-        schema: [] 
+        schema: [] ,
+        values: this.prefillvalues
       }
     },
     async mounted() {
-		try {
-			const response = await axios.get(generateUrl(this.schemaurl))
-            this.schema = response.data
-            console.log(this.schema)
-			
-		} catch (e) {
-			console.error(e)
-			showError(t('notestutorial', 'Could not fetch notes'))
-		}
-		//this.loading = false
-	},
+		  try {
+			  const response = await axios.get(generateUrl(this.schemaurl))
+        this.schema = response.data
+        console.log(this.schema)
+        console.log(this.prefillvalues)
+      } catch (e) {
+			  console.error(e)
+			  showError(t('notestutorial', 'Could not fetch notes'))
+		  }
+		},
 
     methods: {
         async submitHandler (data) {
