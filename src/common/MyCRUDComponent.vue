@@ -2,7 +2,15 @@
     <div>
       <h3>New entity</h3>
       <MyForm :schemaurl="this.options.url.entityschema" :formtargeturl="this.options.url.resources"/>
-
+      <div v-if="this.editEntity != null">
+        <h3>Edit entity</h3>
+        <MyForm 
+          :schemaurl="this.options.url.entityschema" 
+          :formtargeturl="this.options.url.resources+'/'+this.editEntityId" 
+          :prefillvalues="this.editEntity"
+          method="PUT"
+        />
+      </div>
       <h3>All entities</h3>
       <MyTable 
         :dataurl="this.options.url.resources" 
@@ -16,6 +24,8 @@
   <script>
   import MyForm from './MyForm.vue'
   import MyTable from './MyTable.vue'
+  import axios from '@nextcloud/axios'
+  import { generateUrl } from '@nextcloud/router'
 
   export default {
   
@@ -25,12 +35,23 @@
       MyTable,
     },
     data() {
-      return { }
+      return { 
+        editEntity: null
+      }
     },
     methods: {
-      doAction(type,id) {
-        console.log(type)
-        console.log(id)
+      async doAction(type,id) {
+        if(type == "delete"){
+
+        }else if (type == "edit"){
+          //this.editEntityId = id;
+          const response = await axios.get(generateUrl(this.options.url.resources+'/'+id))
+          console.info(response.data)
+          this.editEntity = response.data
+        }else{
+          console.error("Invalid type:"+type)
+        }
+        //console.log(id)
       }
     }
   };

@@ -7,10 +7,7 @@
               {{ attr.label }}
             </th>
             <th>
-              Edit
-            </th>
-            <th>
-              Delete
+              Actions
             </th>
           </tr>
           <tr v-for="entity in values">
@@ -18,10 +15,21 @@
               {{ entity[attr.id] }}
             </td>
             <td>
-              ToDo
-            </td>
-            <td>
-              ToDo
+              <NcActions>
+                <NcActionButton @click="$emit('entity-action', 'edit',entity.id)">
+			            <template #icon>
+				            <Pencil :size="20" />
+			            </template>
+			            Edit
+		            </NcActionButton>
+                <NcActionButton @click="$emit('entity-action', 'delete',entity.id)">
+			            <template #icon>
+				            <Delete :size="20" />
+			            </template>
+			            Delete
+		            </NcActionButton>
+
+              </NcActions>
             </td>
           </tr>
         </table>
@@ -32,10 +40,19 @@ import { generateUrl } from '@nextcloud/router'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 
+import NcActions from '@nextcloud/vue/dist/Components/NcActions'
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
+import Delete from 'vue-material-design-icons/Delete'
+import Pencil from 'vue-material-design-icons/Pencil'
+
 
 export default {
   props: ['dataurl','entityinfourl'],
   components: {
+    NcActions,
+    NcActionButton,
+    Delete,
+    Pencil,
   },
   data() {
     return { 
@@ -56,6 +73,11 @@ export default {
 			console.error(e)
 			//showError(t('notestutorial', 'Could not fetch notes'))
 		}
+	},
+  methods: {
+		showMessage(msg) {
+			alert(msg)
+		},
 	},
 }
 
